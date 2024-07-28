@@ -43,7 +43,7 @@
 - name: Enable ufw
   service:
     name: ufw
-    state: enabled
+    state: restarted
     enabled: yes
 
 # - name: Configure Redis
