@@ -54,7 +54,7 @@
 - name: Add execute permission on /etc/rc.local
   file:
     path: /etc/rc.local
-    mode: 'u+x'
+    mode: '+x'
     state: file
 
 
