@@ -8,13 +8,13 @@
     name: redis
     state: present
 
-- name: Enable Redis service
+- name: Disable Redis service
   systemd:
     name: redis-server
     enabled: No
     state: stopped
     
-- name: Allow all access to tcp port 80
+- name: Allow all access to tcp port 7000
   community.general.ufw:
     rule: allow
     port: '7000'
