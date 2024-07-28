@@ -62,7 +62,35 @@
     dest: /etc/sysctl.conf
     line: "vm.overcommit_memory=1"
     state: present
+    
+- name: Create a new directory "/etc/redis/cluster"
+  mkdir:
+    path: /etc/redis/cluster
+    mode: '0755'
 
+
+- name: Create a new directory "/etc/redis/cluster/7000"
+  mkdir:
+    path: /etc/redis/cluster/7000
+    mode: '0755'
+    
+- name: Create a new directory "/var/lib/redis/7000"
+  mkdir:
+    path: /var/lib/redis/7000
+    mode: '0755'
+    
+- name: Create a new directory "/etc/redis/cluster/7001"
+  mkdir:
+    path: /etc/redis/cluster/7001
+    mode: '0755'
+    
+- name: Create a new directory "/var/lib/redis/7001"
+  mkdir:
+    path: /var/lib/redis/7001
+    mode: '0755'
+
+
+    
 # - name: Configure Redis
 #   template:
 #     src: redis.conf.j2
