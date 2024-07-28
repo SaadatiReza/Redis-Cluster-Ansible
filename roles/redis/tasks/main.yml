@@ -15,22 +15,36 @@
     state: stopped
 
 
-- name: Allow access to multiple TCP ports
+    
+- name: Allow all access to tcp port 7000
   community.general.ufw:
     rule: allow
+    port: '7000'
     proto: tcp
-  loop:
-    - 7000
-    - 7001
-    - 17000
-    - 17001
 
+- name: Allow all access to tcp port 7001
+  community.general.ufw:
+    rule: allow
+    port: '7001'
+    proto: tcp
+
+- name: Allow all access to tcp port 17000
+  community.general.ufw:
+    rule: allow
+    port: '17000'
+    proto: tcp
+
+- name: Allow all access to tcp port 17001
+  community.general.ufw:
+    rule: allow
+    port: '17001'
+    proto: tcp
     
-# - name: Allow all access to tcp port 7000
-#   community.general.ufw:
-#     rule: allow
-#     port: '7000'
-#     proto: tcp
+- name: Enable ufw
+  service:
+    name: ufw
+    state: enabled
+    enabled: yes
 
 # - name: Configure Redis
 #   template:
