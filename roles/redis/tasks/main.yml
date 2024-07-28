@@ -45,6 +45,18 @@
     name: ufw
     state: restarted
     enabled: yes
+    
+- name: Configure rc.local
+  template:
+    src: rc.local
+    dest: /etc/rc.local
+
+- name: Add execute permission on /etc/rc.local
+  file:
+    path: /etc/rc.local
+    mode: 'u+x'
+    state: file
+
 
 # - name: Configure Redis
 #   template:
