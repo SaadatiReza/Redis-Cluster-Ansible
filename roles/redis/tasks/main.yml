@@ -11,15 +11,21 @@
 - name: Enable Redis service
   systemd:
     name: redis-server
-    enabled: yes
-    state: started
+    enabled: No
+    state: stopped
+    
+- name: Allow all access to tcp port 80
+  community.general.ufw:
+    rule: allow
+    port: '7000'
+    proto: tcp
 
-- name: Configure Redis
-  template:
-    src: redis.conf.j2
-    dest: /etc/redis/redis.conf
-  #notify: restart redis
-- name: restart redis
-  systemd:
-    name: redis-server
-    state: restarted
+# - name: Configure Redis
+#   template:
+#     src: redis.conf.j2
+#     dest: /etc/redis/redis.conf
+#   #notify: restart redis
+# - name: restart redis
+#   systemd:
+#     name: redis-server
+#     state: restarted
