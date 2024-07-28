@@ -64,30 +64,30 @@
     state: present
     
 - name: Create a new directory "/etc/redis/cluster"
-  mkdir:
+  file:
     path: /etc/redis/cluster
-    mode: '0755'
+    state: directory
 
 
 - name: Create a new directory "/etc/redis/cluster/7000"
-  mkdir:
+  file:
     path: /etc/redis/cluster/7000
-    mode: '0755'
+    state: directory
     
 - name: Create a new directory "/var/lib/redis/7000"
-  mkdir:
+  file:
     path: /var/lib/redis/7000
-    mode: '0755'
+    state: directory
     
 - name: Create a new directory "/etc/redis/cluster/7001"
-  mkdir:
+  file:
     path: /etc/redis/cluster/7001
-    mode: '0755'
-    
+    state: directory    
+  
 - name: Create a new directory "/var/lib/redis/7001"
-  mkdir:
+  file:
     path: /var/lib/redis/7001
-    mode: '0755'
+    state: directory
 
 
     
