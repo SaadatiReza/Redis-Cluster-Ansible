@@ -60,8 +60,7 @@
 - name: Append multiple lines to /etc/sysctl.conf
   lineinfile:
     dest: /etc/sysctl.conf
-    lines:
-      - "vm.overcommit_memory=1"
+    line: "vm.overcommit_memory=1"
     state: present
 
 # - name: Configure Redis
