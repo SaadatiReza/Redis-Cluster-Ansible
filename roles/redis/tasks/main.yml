@@ -146,14 +146,36 @@
     #daemon_reload: yes
     #path: /etc/systemd/system/redis_7000.service
 
-- name: Reboot the server
-  reboot:
-    msg: "Reboot initiated by Ansible"
-    connect_timeout: 5
-    reboot_timeout: 600
-    pre_reboot_delay: 0
-    post_reboot_delay: 30
+# - name: Reboot the server
+#   reboot:
+#     msg: "Reboot initiated by Ansible"
+#     connect_timeout: 5
+#     reboot_timeout: 600
+#     pre_reboot_delay: 0
+#     post_reboot_delay: 60
 
+- name: Create Redis Cluster
+  hosts: localhost
+  tasks:
+    - name: Construct Redis cluster create command
+      set_fact:
+        redis_cluster_command: >
+          redis-cli --cluster create
+          {% for host in groups['redis_master'] %}
+          {{ host }}
+          {% endfor %}
+          {% for host in groups['redis_slave'] %}
+          {{ host }}
+          {% endfor %}
+          --cluster-replicas 1 -a {{ redis_access_key }}
+
+    - name: Print Redis cluster command for debug
+      debug:
+        msg: "{{ redis_cluster_command }}"
+
+    - name: Execute Redis cluster create command
+      command: "{{ redis_cluster_command }}"
+      become: yes
     
 # - name: Configure Redis
 #   template:
