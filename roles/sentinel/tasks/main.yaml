@@ -1,26 +1,23 @@
-- name: Configure Redis Sentinel
-  template:
-    src: sentinel.conf.j2
-    dest: /etc/redis/sentinel.conf
-  notify: restart sentinel
+- name: Create Redis Cluster
+  hosts: redis1 
+  tasks:
+    - name: Construct Redis cluster create command
+      set_fact:
+        redis_cluster_command: >
+          redis-cli --cluster create
+          {% for host in groups['redis_master'] %}
+          {{ host }}
+          {% endfor %}
+          {% for host in groups['redis_slave'] %}
+          {{ host }}
+          {% endfor %}
+          --cluster-replicas 1 -a {{ redis_access_key }}
 
-- name: Change sentinel file permission
-  file:
-    path: /etc/redis/sentinel.conf
-    owner: redis
-    group: redis
+    - name: Print Redis cluster command for debug
+      debug:
+        msg: "{{ redis_cluster_command }}"
 
-- name: Create Redis Sentinel systemd service
-  template:
-    src: redis-sentinel.service.j2
-    dest: /etc/systemd/system/redis-sentinel.service
-
-- name: Reload systemd daemon
-  systemd:
-    daemon_reload: yes
-
-- name: Enable and start Redis Sentinel service
-  systemd:
-    name: redis-sentinel
-    enabled: yes
-    state: started
+    - name: Execute Redis cluster create command
+      command: "{{ redis_cluster_command }}"
+      become: yes
+    
