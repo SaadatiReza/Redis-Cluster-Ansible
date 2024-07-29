@@ -98,6 +98,41 @@
   template:
     src: redis_7001.conf.j2
     dest: /etc/redis/cluster/7000/redis_7001.conf
+
+- name: Change "/var/lib/redis" file permission
+  file:
+    path: /var/lib/redis
+    state: directory
+    recurse: yes
+    owner: redis
+    group: redis
+    
+- name: Change permissions of /var/lib/redis
+  file:
+    path: /var/lib/redis
+    state: directory
+    recurse: yes
+    mode: '0770'
+
+- name: Change "/etc/redis" file permission
+  file:
+    path: /etc/redis
+    state: directory
+    recurse: yes
+    owner: redis
+    group: redis
+
+- name: Configure Redis 7000 Configuration file
+  template:
+    src: redis_7000.service
+    dest: /etc/systemd/system/redis_7000.service
+
+- name: Configure Redis 7001 Configuration file
+  template:
+    src: redis_7001.service
+    dest: /etc/systemd/system/redis_7001.service
+
+
     
 # - name: Configure Redis
 #   template:
