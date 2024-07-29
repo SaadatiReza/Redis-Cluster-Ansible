@@ -18,4 +18,5 @@
 - name: Execute Redis cluster create command
   command: "{{ redis_cluster_command }}"
   become: yes
-
+  vars:
+    redis_access_key: "P@ssw0rd"
