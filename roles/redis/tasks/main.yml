@@ -89,7 +89,15 @@
     path: /var/lib/redis/7001
     state: directory
 
-
+- name: Configure Redis 7000 Configuration file
+  template:
+    src: redis_7000.conf.j2
+    dest: /etc/redis/cluster/7000/redis_7000.conf
+    
+- name: Configure Redis 7001 Configuration file
+  template:
+    src: redis_7001.conf.j2
+    dest: /etc/redis/cluster/7000/redis_7001.conf
     
 # - name: Configure Redis
 #   template:
