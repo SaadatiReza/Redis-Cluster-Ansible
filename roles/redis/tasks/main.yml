@@ -97,7 +97,7 @@
 - name: Configure Redis 7001 Configuration file
   template:
     src: redis_7001.conf.j2
-    dest: /etc/redis/cluster/7000/redis_7001.conf
+    dest: /etc/redis/cluster/7001/redis_7001.conf
 
 - name: Change "/var/lib/redis" file permission
   file:
