@@ -136,15 +136,15 @@
   systemd:
     name: redis_7000
     enabled: yes
-    daemon_reload: yes
-    path: /etc/systemd/system/redis_7000.service
+    #daemon_reload: yes
+    #path: /etc/systemd/system/redis_7000.service
 
 - name: Enable redis_7001 service
   systemd:
     name: redis_7001
     enabled: yes
-    daemon_reload: yes
-    path: /etc/systemd/system/redis_7000.service
+    #daemon_reload: yes
+    #path: /etc/systemd/system/redis_7000.service
 
 - name: Reboot the server
   reboot:
