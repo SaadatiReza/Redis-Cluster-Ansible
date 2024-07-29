@@ -4,10 +4,10 @@
     redis_cluster_command: >
       redis-cli --cluster create
       {% for host in groups['redis_master'] %}
-      {{ host }}
+      {{ host }}:7000
       {% endfor %}
       {% for host in groups['redis_slave'] %}
-      {{ host }}
+      {{ host }}:7001
       {% endfor %}
       --cluster-replicas 1 -a {{ redis_access_key }}
   # vars:
