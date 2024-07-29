@@ -3,4 +3,9 @@
   roles:
     - role: common
     - role: redis
-    - role: cluster
+    #- role: cluster
+    
+- name: Setup Redis Cluster
+  hosts: redis1
+  roles:
+    - cluster
