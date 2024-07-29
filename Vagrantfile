@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
   end
 
   # Define machine 4
-  config.vm.define "machine3" do |machine4|
+  config.vm.define "machine4" do |machine4|
     machine4.vm.network "private_network", ip: "192.168.56.13"
       config.vm.provider "virtualbox" do |v|
         v.memory = 4096
@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
     end
   end
   # Define machine 5
-  config.vm.define "machine3" do |machine5|
+  config.vm.define "machine5" do |machine5|
     machine5.vm.network "private_network", ip: "192.168.56.14"
       config.vm.provider "virtualbox" do |v|
         v.memory = 4096
