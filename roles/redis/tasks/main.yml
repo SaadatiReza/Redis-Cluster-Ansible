@@ -148,7 +148,7 @@
 #     state: directory
 #     recurse: yes
 #     mode: '0770'
-- name: Change "/etc/redis" file permission
+#- name: Change "/etc/redis" file permission
 #   file:
 #     path: /etc/redis
 #     state: directory
