@@ -127,10 +127,10 @@
 #     dest: /etc/redis/cluster/7001/redis_7001.conf
 
 - name: Configure Redis instance configuration files
-    template:
-      src: "redis_{{ item }}.conf.j2"
-      dest: "{{ redis_cluster_base_dir }}/{{ item }}/redis_{{ item }}.conf"
-    loop: "{{ redis_ports }}"
+  template:
+    src: "redis_{{ item }}.conf.j2"
+    dest: "{{ redis_cluster_base_dir }}/{{ item }}/redis_{{ item }}.conf"
+  loop: "{{ redis_ports }}"
 
 
 
