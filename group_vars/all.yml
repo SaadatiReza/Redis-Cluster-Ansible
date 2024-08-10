@@ -1,10 +1,10 @@
 redis_password: P@ssw0rd
 redis_access_key: P@ssw0rd
 redis_ports:
-   - 7000
-   - 7001
- redis_cluster_base_dir: "/etc/redis/cluster"
- redis_data_base_dir: "/var/lib/redis"
- redis_user: "redis"
- redis_group: "redis"
- redis_ppa: "ppa:redislabs/redis"
+  - 7000
+  - 7001
+redis_cluster_base_dir: "/etc/redis/cluster"
+redis_data_base_dir: "/var/lib/redis"
+redis_user: "redis"
+redis_group: "redis"
+redis_ppa: "ppa:redislabs/redis"
