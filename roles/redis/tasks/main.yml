@@ -169,29 +169,44 @@
     - "{{ redis_cluster_base_dir }}"
 
 
-- name: Configure Redis 7000 Configuration file
+# - name: Configure Redis 7000 Configuration file
+#   template:
+#     src: redis_7000.service
+#     dest: /etc/systemd/system/redis_7000.service
+
+# - name: Configure Redis 7001 Configuration file
+#   template:
+#     src: redis_7001.service
+#     dest: /etc/systemd/system/redis_7001.service
+
+# - name: Enable redis_7000 service
+#   systemd:
+#     name: redis_7000
+#     enabled: yes
+#     #daemon_reload: yes
+#     #path: /etc/systemd/system/redis_7000.service
+
+# - name: Enable redis_7001 service
+#   systemd:
+#     name: redis_7001
+#     enabled: yes
+#     #daemon_reload: yes
+#     #path: /etc/systemd/system/redis_7000.service
+
+- name: Configure Redis systemd service files
   template:
-    src: redis_7000.service
-    dest: /etc/systemd/system/redis_7000.service
+    src: "redis_{{ item }}.service"
+    dest: "/etc/systemd/system/redis_{{ item }}.service"
+  loop: "{{ redis_ports }}"
 
-- name: Configure Redis 7001 Configuration file
-  template:
-    src: redis_7001.service
-    dest: /etc/systemd/system/redis_7001.service
-
-- name: Enable redis_7000 service
+- name: Enable Redis services
   systemd:
-    name: redis_7000
+    name: "redis_{{ item }}"
     enabled: yes
-    #daemon_reload: yes
-    #path: /etc/systemd/system/redis_7000.service
+    state: started
+  loop: "{{ redis_ports }}"
 
-- name: Enable redis_7001 service
-  systemd:
-    name: redis_7001
-    enabled: yes
-    #daemon_reload: yes
-    #path: /etc/systemd/system/redis_7000.service
+
 
 # - name: Reboot the server
 #   reboot:
