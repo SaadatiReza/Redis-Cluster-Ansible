@@ -1,6 +1,6 @@
 - name: Add Redis PPA
   apt_repository:
-    repo: ppa:redislabs/redis
+    repo: "{{ redis_ppa }}"
     state: present
 
 - name: Install Redis
