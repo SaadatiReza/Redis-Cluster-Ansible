@@ -116,38 +116,58 @@
 
 
 
-- name: Configure Redis 7000 Configuration file
-  template:
-    src: redis_7000.conf.j2
-    dest: /etc/redis/cluster/7000/redis_7000.conf
+# - name: Configure Redis 7000 Configuration file
+#   template:
+#     src: redis_7000.conf.j2
+#     dest: /etc/redis/cluster/7000/redis_7000.conf
     
-- name: Configure Redis 7001 Configuration file
-  template:
-    src: redis_7001.conf.j2
-    dest: /etc/redis/cluster/7001/redis_7001.conf
+# - name: Configure Redis 7001 Configuration file
+#   template:
+#     src: redis_7001.conf.j2
+#     dest: /etc/redis/cluster/7001/redis_7001.conf
 
-- name: Change "/var/lib/redis" file permission
-  file:
-    path: /var/lib/redis
-    state: directory
-    recurse: yes
-    owner: redis
-    group: redis
+- name: Configure Redis instance configuration files
+    template:
+      src: "redis_{{ item }}.conf.j2"
+      dest: "{{ redis_cluster_base_dir }}/{{ item }}/redis_{{ item }}.conf"
+    loop: "{{ redis_ports }}"
+
+
+
+# - name: Change "/var/lib/redis" file permission
+#   file:
+#     path: /var/lib/redis
+#     state: directory
+#     recurse: yes
+#     owner: redis
+#     group: redis
     
-- name: Change permissions of /var/lib/redis
-  file:
-    path: /var/lib/redis
-    state: directory
-    recurse: yes
-    mode: '0770'
-
+# - name: Change permissions of /var/lib/redis
+#   file:
+#     path: /var/lib/redis
+#     state: directory
+#     recurse: yes
+#     mode: '0770'
 - name: Change "/etc/redis" file permission
+#   file:
+#     path: /etc/redis
+#     state: directory
+#     recurse: yes
+#     owner: redis
+#     group: redis
+
+- name: Set permissions for Redis directories
   file:
-    path: /etc/redis
+    path: "{{ item }}"
     state: directory
     recurse: yes
-    owner: redis
-    group: redis
+    owner: "{{ redis_user }}"
+    group: "{{ redis_group }}"
+    mode: '0770'
+  loop:
+    - "{{ redis_data_base_dir }}"
+    - "{{ redis_cluster_base_dir }}"
+
 
 - name: Configure Redis 7000 Configuration file
   template:
