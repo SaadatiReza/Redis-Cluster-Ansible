@@ -81,25 +81,40 @@
     state: directory
 
 
-- name: Create a new directory "/etc/redis/cluster/7000"
-  file:
-    path: /etc/redis/cluster/7000
-    state: directory
+# - name: Create a new directory "/etc/redis/cluster/7000"
+#   file:
+#     path: /etc/redis/cluster/7000
+#     state: directory
     
-- name: Create a new directory "/var/lib/redis/7000"
-  file:
-    path: /var/lib/redis/7000
-    state: directory
+# - name: Create a new directory "/var/lib/redis/7000"
+#   file:
+#     path: /var/lib/redis/7000
+#     state: directory
     
-- name: Create a new directory "/etc/redis/cluster/7001"
-  file:
-    path: /etc/redis/cluster/7001
-    state: directory    
+# - name: Create a new directory "/etc/redis/cluster/7001"
+#   file:
+#     path: /etc/redis/cluster/7001
+#     state: directory    
   
-- name: Create a new directory "/var/lib/redis/7001"
+# - name: Create a new directory "/var/lib/redis/7001"
+#   file:
+#     path: /var/lib/redis/7001
+#     state: directory
+
+
+- name: Create Redis cluster directories
   file:
-    path: /var/lib/redis/7001
+    path: "{{ redis_cluster_base_dir }}/{{ item }}"
     state: directory
+  loop: "{{ redis_ports }}"
+
+- name: Create Redis data directories
+  file:
+    path: "{{ redis_data_base_dir }}/{{ item }}"
+    state: directory
+  loop: "{{ redis_ports }}"
+
+
 
 - name: Configure Redis 7000 Configuration file
   template:
